@@ -1,0 +1,929 @@
+/* === HOTEL DES ANIMAUX - Style Cartoon Coloré === */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --pink: #FF6B9D;
+  --orange: #FF8C42;
+  --yellow: #FFD166;
+  --green: #06D6A0;
+  --blue: #118AB2;
+  --purple: #8338EC;
+  --red: #EF476F;
+  --cream: #FFF8F0;
+  --brown: #8B5E3C;
+  --dark: #2D3436;
+  --white: #FFFFFF;
+  --shadow: 0 4px 15px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#game {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* === COMMON === */
+.screen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn:active { transform: translateY(1px) scale(0.97); }
+
+.btn-pink { background: linear-gradient(135deg, var(--pink), #FF85B1); }
+.btn-orange { background: linear-gradient(135deg, var(--orange), #FFA366); }
+.btn-green { background: linear-gradient(135deg, var(--green), #2EFFC0); }
+.btn-blue { background: linear-gradient(135deg, var(--blue), #1CA8D8); }
+.btn-purple { background: linear-gradient(135deg, var(--purple), #A855F7); }
+.btn-yellow { background: linear-gradient(135deg, var(--yellow), #FFE08A); color: var(--dark); }
+.btn-red { background: linear-gradient(135deg, var(--red), #FF7096); }
+
+.btn-small { font-size: 0.85rem; padding: 8px 18px; }
+.btn-large { font-size: 1.3rem; padding: 16px 36px; }
+
+/* === STATUS BAR === */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.status-icon { font-size: 1.2rem; }
+
+/* === NAV BAR === */
+.nav-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 4px;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.2s;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+}
+
+.nav-btn.active { color: var(--pink); background: #FFF0F5; }
+.nav-btn:hover { color: var(--pink); }
+.nav-icon { font-size: 1.5rem; }
+
+/* === TITLE SCREEN === */
+.title-screen {
+  background: linear-gradient(135deg, #FFE0EC, #E0F0FF, #E0FFE8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 20px;
+}
+
+.title-logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  color: var(--pink);
+  text-shadow: 3px 3px 0 var(--orange), 6px 6px 0 rgba(0,0,0,0.1);
+  animation: float 3s ease-in-out infinite;
+}
+
+.title-animals {
+  font-size: clamp(3rem, 12vw, 5rem);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.title-subtitle {
+  font-size: 1.1rem;
+  color: #888;
+  font-weight: 600;
+}
+
+.title-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* === HOTEL LOBBY === */
+.lobby-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lobby-welcome {
+  text-align: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #FFF0F5, #FFF8E0);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.lobby-welcome h2 {
+  font-family: 'Fredoka One', cursive;
+  color: var(--pink);
+  font-size: 1.4rem;
+}
+
+.lobby-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.lobby-door {
+  background: white;
+  border-radius: 20px;
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+  border: 3px solid transparent;
+}
+
+.lobby-door:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.lobby-door:active { transform: scale(0.96); }
+.lobby-door.locked { opacity: 0.5; filter: grayscale(0.5); }
+
+.door-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.door-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+.door-desc {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 4px;
+}
+.door-lock { font-size: 0.7rem; color: var(--orange); margin-top: 4px; font-weight: 700; }
+
+/* === ANIMAL CARDS === */
+.animals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.animal-card {
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.animal-card:hover { transform: translateY(-4px); }
+.animal-card:active { transform: scale(0.96); }
+.animal-card.vip { border: 3px solid var(--purple); background: linear-gradient(135deg, #F8F0FF, #FFF0F8); }
+
+.animal-emoji { font-size: 3rem; animation: float 3s ease-in-out infinite; }
+.animal-name { font-family: 'Fredoka One', cursive; font-size: 1rem; margin-top: 8px; }
+.animal-breed { font-size: 0.75rem; color: #999; }
+
+.animal-mood {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.mood-happy { background: #E0FFE8; color: var(--green); }
+.mood-ok { background: #FFF8E0; color: var(--orange); }
+.mood-sad { background: #FFE0E8; color: var(--red); }
+
+.vip-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--purple);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+/* === ANIMAL ROOM === */
+.room-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.room-animal {
+  font-size: 6rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.room-name {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  color: var(--pink);
+}
+
+.room-owner {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.stat-item {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  margin-bottom: 6px;
+}
+
+.stat-bar {
+  height: 10px;
+  background: #EEE;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.stat-fill.high { background: linear-gradient(90deg, var(--green), #2EFFC0); }
+.stat-fill.mid { background: linear-gradient(90deg, var(--yellow), var(--orange)); }
+.stat-fill.low { background: linear-gradient(90deg, var(--red), var(--pink)); }
+
+.room-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.room-actions .btn { flex: 1; min-width: 120px; font-size: 0.95rem; }
+
+/* === QUEST BOARD === */
+.quest-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quest-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 5px solid var(--blue);
+}
+
+.quest-card:hover { transform: translateX(4px); }
+.quest-card.active { border-left-color: var(--green); background: #F0FFF5; }
+.quest-card.completed { border-left-color: #CCC; opacity: 0.6; }
+.quest-card.vip-quest { border-left-color: var(--purple); background: #FAF0FF; }
+
+.quest-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quest-desc { font-size: 0.85rem; color: #666; margin-top: 6px; }
+
+.quest-reward {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+/* === VILLAGE MAP === */
+.village-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.village-title {
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+  color: var(--green);
+  font-size: 1.3rem;
+}
+
+.village-places {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.place-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.place-card:hover { transform: translateY(-4px); }
+.place-card:active { transform: scale(0.96); }
+.place-card.locked { opacity: 0.4; pointer-events: none; }
+
+.place-icon { font-size: 2.5rem; }
+.place-name { font-family: 'Fredoka One', cursive; font-size: 0.9rem; margin-top: 8px; }
+.place-desc { font-size: 0.7rem; color: #999; margin-top: 4px; }
+
+/* === SHOP === */
+.shop-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shop-category {
+  font-family: 'Fredoka One', cursive;
+  color: var(--orange);
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+.shop-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.shop-item {
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.shop-item:hover { transform: translateY(-3px); }
+.shop-item:active { transform: scale(0.96); }
+.shop-item.owned { border: 2px solid var(--green); opacity: 0.7; }
+
+.shop-item-icon { font-size: 2rem; }
+.shop-item-name { font-size: 0.85rem; font-weight: 700; margin-top: 6px; }
+.shop-item-price { font-size: 0.8rem; color: var(--orange); font-weight: 800; margin-top: 4px; }
+
+/* === VIP ZONE === */
+.vip-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: linear-gradient(180deg, #F8F0FF, #FFF0F8, #F0F8FF);
+}
+
+.vip-header {
+  text-align: center;
+  padding: 16px;
+}
+
+.vip-header h2 {
+  font-family: 'Fredoka One', cursive;
+  color: var(--purple);
+  font-size: 1.4rem;
+}
+
+/* === MINI-GAME OVERLAY === */
+.minigame-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+.minigame-container {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  width: 90%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.3s ease;
+}
+
+.minigame-title {
+  font-family: 'Fredoka One', cursive;
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--pink);
+  margin-bottom: 16px;
+}
+
+/* Feeding game */
+.feeding-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.feeding-animal { font-size: 4rem; animation: wiggle 1s ease-in-out infinite; }
+
+.food-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.food-item {
+  font-size: 2.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 8px;
+  border-radius: 16px;
+  background: #F8F8F8;
+}
+
+.food-item:hover { transform: scale(1.2); background: #FFF0E0; }
+.food-item:active { transform: scale(0.9); }
+.food-item.correct { animation: bounce 0.5s; background: #E0FFE8; }
+.food-item.wrong { animation: wiggle 0.5s; background: #FFE0E0; }
+
+/* Washing game */
+.washing-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.washing-animal {
+  font-size: 5rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.dirt-spots {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.dirt-spot {
+  position: absolute;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dirt-spot.cleaned {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.wash-progress {
+  font-family: 'Fredoka One', cursive;
+  color: var(--blue);
+}
+
+/* Search game */
+.search-area {
+  position: relative;
+  min-height: 300px;
+  background: linear-gradient(180deg, #E8F5E9, #C8E6C9);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.search-item {
+  position: absolute;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.search-item:hover { transform: scale(1.3); }
+.search-item.found { animation: sparkle 0.5s; opacity: 0.3; pointer-events: none; }
+
+.search-hint {
+  text-align: center;
+  font-weight: 700;
+  color: var(--green);
+  padding: 8px;
+}
+
+/* === DIALOG BOX === */
+.dialog-overlay {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  padding: 16px;
+  z-index: 50;
+  animation: slideUp 0.3s ease;
+}
+
+.dialog-box {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--blue);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.dialog-speaker {
+  font-family: 'Fredoka One', cursive;
+  color: var(--blue);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.dialog-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.dialog-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dialog-choice {
+  padding: 10px 16px;
+  background: #F0F8FF;
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.dialog-choice:hover { background: var(--blue); color: white; }
+
+/* === EVENT POPUP === */
+.event-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.3s ease;
+}
+
+.event-popup {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  text-align: center;
+  max-width: 350px;
+  width: 85%;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.4s ease;
+}
+
+.event-icon { font-size: 4rem; margin-bottom: 12px; }
+
+.event-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: var(--pink);
+  margin-bottom: 8px;
+}
+
+.event-text {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* === KITCHEN === */
+.kitchen-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.recipe-card:hover { transform: translateX(4px); }
+.recipe-icon { font-size: 2.5rem; }
+.recipe-name { font-family: 'Fredoka One', cursive; font-size: 1rem; }
+.recipe-desc { font-size: 0.8rem; color: #999; }
+.recipe-for { font-size: 0.75rem; color: var(--green); font-weight: 700; }
+
+/* === GARDEN === */
+.garden-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: linear-gradient(180deg, #E8F8E0, #F0FFE8);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.garden-activity {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.garden-activity:hover { transform: translateY(-3px); }
+.garden-activity-icon { font-size: 3rem; }
+.garden-activity-name { font-family: 'Fredoka One', cursive; margin-top: 8px; }
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #DDD; border-radius: 3px; }
+
+/* === BACK BUTTON === */
+.back-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.back-btn:hover { transform: scale(1.1); }
+
+/* === SCREEN HEADER === */
+.screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.screen-header h2 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+}
+
+.screen-header .back-btn {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.screen-header .back-btn:hover { transform: translateY(-50%) scale(1.1); }
+
+/* === RESULT SCREEN === */
+.result-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+}
+
+.result-card {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  text-align: center;
+  max-width: 320px;
+  width: 85%;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.4s ease;
+}
+
+.result-emoji { font-size: 4rem; margin-bottom: 12px; }
+.result-title { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: var(--green); }
+.result-text { font-size: 0.95rem; color: #666; margin: 8px 0 16px; }
+.result-reward { font-size: 1.1rem; font-weight: 800; color: var(--orange); margin-bottom: 16px; }
+
+/* === EMPTY STATE === */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+}
+
+.empty-icon { font-size: 4rem; margin-bottom: 12px; opacity: 0.5; }
+.empty-text { font-size: 1rem; font-weight: 600; }
+
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+  .lobby-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .animals-grid { grid-template-columns: repeat(2, 1fr); }
+  .village-places { grid-template-columns: repeat(2, 1fr); }
+  .btn { font-size: 1rem; padding: 10px 22px; }
+  .title-logo { font-size: 2rem; }
+}
+
+@media (min-width: 768px) {
+  .lobby-grid { grid-template-columns: repeat(3, 1fr); }
+  .animals-grid { grid-template-columns: repeat(3, 1fr); }
+  .shop-items { grid-template-columns: repeat(3, 1fr); }
+}
